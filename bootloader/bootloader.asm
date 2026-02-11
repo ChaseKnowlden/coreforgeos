@@ -72,9 +72,10 @@ end if
     mov word [lba_packet.size], 16
     mov word [lba_packet.count], 1      ; read 1 sector for now, needs to change when we have a 2nd stage
     mov word [lba_packet.segment], 80h  ; 0x80:0x00 -> 0x800
-    mov word [lba_packet.offset], 0
-    mov word [lba_packet.sector0], 0    ; dword (lower 32-bits of the sector num) [sector0][sector1]
-    mov word [lba_packet.sector1], 2
+    mov word [lba_packet.offset], 0800h
+
+    mov word [lba_packet.sector0], 89    ; dword (lower 32-bits of the sector num) [sector0][sector1]
+    mov word [lba_packet.sector1], 0
     mov word [lba_packet.sector2], 0
     mov word [lba_packet.sector3], 0
 
@@ -130,7 +131,8 @@ printfunc:
 
 ; variables
 boot_drive:      db 0
-magic_bytes:    db 0F4h, 1Ch         ;0xF41C
+magic_bytes:     db 05Ch, 78h         ; 0x785C
+stage_2_start:   dd 0xFFFFFFFF
 
 ; error messages
 panic_prefix:   db "B00T PANIC: ",0

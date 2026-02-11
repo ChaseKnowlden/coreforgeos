@@ -1,1 +1,4 @@
 build/bootloader.bin
+dist
+build/second.bin
+build/mkboot
