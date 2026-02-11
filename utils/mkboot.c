@@ -9,9 +9,9 @@
 #define SECTOR_SIZE 512
 
 // mkboot disk.img bootloader.bin
-int main(int argc, char** argv) {
-    char* disk_filename;
-    char* bootloader_filename;
+int main(int argc, char **argv) {
+    char *disk_filename;
+    char *bootloader_filename;
     int disk_fd;
     int bootloader_fd;
     unsigned char data[SECTOR_SIZE];

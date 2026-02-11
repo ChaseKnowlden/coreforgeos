@@ -83,7 +83,7 @@ end if
     mov word [lba_packet.size], 16
     mov word cx, [stage2_len]
     mov word [lba_packet.count], cx      ; read 1 sector for now, needs to change when we have a 2nd stage
-    mov word [lba_packet.segment], 80h  ; 0x80:0x00 -> 0x800
+    mov word [lba_packet.segment], 0h  ; 0x80:0x00 -> 0x800
     mov word [lba_packet.offset], 0800h
 
     mov cx, [stage_2_start]
