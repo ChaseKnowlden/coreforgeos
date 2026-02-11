@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -56,8 +57,8 @@ int main(int argc, char** argv) {
         }
 
         if (data[0] == 0x5C && data[1] == 0x78) {
-            printf("Found MAGIC_BYTES @ sector %d\n", sec);
-            second_stage_sector = sec;
+            printf("Found MAGIC_BYTES @ sector %d\n", sec + 1);
+            second_stage_sector = sec + 1;
             break;
         }
     }
@@ -74,7 +75,8 @@ int main(int argc, char** argv) {
     }
     close(bootloader_fd);
 
-    // TODO: write start addr on 2nd stage to bootloader
+    memcpy((void*)&data + 0xd0, (void*)&second_stage_sector, 4);
+    // TODO: Figure out the 2nd stage len in sectors
 
     // need to write 0x1C0 = 448 Bytes to the first sector of our disk
     disk_fd = open(disk_filename, O_WRONLY);
